@@ -8,9 +8,8 @@ import "fmt"
 import "math"
 
 const NUMBER = 600851475143
-//const NUMBER = 1000
 
-func eratosthenes(max int) []int {
+func eratosthenes(max int, c chan int) {
 	nums := make([]int, max)
 
 	p := 2 // start with the first prime
@@ -31,35 +30,29 @@ func eratosthenes(max int) []int {
 			}
 		}
 
+		c <- p
 
 		if i ==  max {
 			break
 		}
 	}
 
-	// filter out all marked numbers
-	primes := make([]int, max)
-	j := 0
-	for i := range nums {
-		if nums[i] == 0 {
-			primes[j] = i + 1
-			j++
-		}
-	}
-
-	return primes[:j]
-
+	close(c)
 }
 
 func main() {
 	max := int(math.Sqrt(NUMBER))
-	primes := eratosthenes(max)
 
-	for i := len(primes) - 1; i >= 0; i-- {
-		factor := primes[i]
-		if NUMBER % factor == 0 {
-			fmt.Println(factor)
-			break
+	c := make(chan int)
+
+	go eratosthenes(max, c)
+
+	var factor int
+	for prime := range c {
+		if NUMBER % prime == 0 {
+			factor = prime
 		}
 	}
+
+	fmt.Println(factor)
 }
