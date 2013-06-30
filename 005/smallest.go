@@ -8,25 +8,31 @@ package main
 
 import "fmt"
 
-func main() {
-	num := 2
-	i := 1
-	for {
-		i = 1
-
-		for i < 20 {
-			if num%i != 0 {
-				break
-			}
-
-			i++
+func is_divisible_to(number, x int) bool {
+	for i := x; i > 0; i-- {
+		if number % i != 0 {
+			return false
 		}
-
-		if i == 20 {
-			fmt.Println(num)
-			break
-		}
-
-		num += 1
 	}
+	return true
+}
+
+func divisible_to(x int) int {
+	if x < 1 { return 0 }
+	if x == 1 { return 1 }
+
+	n := 0
+	step := divisible_to(x-1)
+
+	found := false
+	for !found {
+		n += step
+		found = is_divisible_to(n, x)
+	}
+
+	return n
+}
+
+func main() {
+	fmt.Println(divisible_to(20))
 }
