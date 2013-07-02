@@ -21,36 +21,27 @@
 package main
 
 import "fmt"
-
-func get_divisors(x int) []int {
-	divisors := []int{}
-
-	i := 1
-	j := x
-	for i <= j {
-		if x % i == 0 {
-			j = x/i
-			divisors = append(divisors, i, j)
-		}
-		i++
-	}
-
-	return divisors
-}
+import "math"
 
 func main() {
-	i, triangle := 1, 0
+	a, triangle, divisors := 0, 0, 0
 
-	var divisors []int
+	for divisors < 500{
+		divisors = 0
+		a += 1
+		triangle += a
 
-	for {
-		triangle += i
-		divisors = get_divisors(triangle)
-
-		if len(divisors) > 500 {
-			break
+		squareRoot := int(math.Sqrt(float64(triangle)))
+		for i := 1; i < squareRoot; i++ {
+			if triangle % i == 0 {
+				divisors += 2
+			}
 		}
-		i++
+
+		// correct for perfrect square
+		if squareRoot * squareRoot == triangle {
+			divisors--
+		}
 	}
 
 	fmt.Println(triangle)
