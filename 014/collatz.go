@@ -25,17 +25,17 @@ type Chain struct {
 	start, length int
 }
 
-func collatz(start int) Chain{
+func collatz(start int) Chain {
 	count := 0
-	for i := start; i > 1; count++ {
-		if i % 2 == 0 {
-			i = i/2
+	for i := int64(start); i > 1; count++ {
+		if i%2 == 0 {
+			i = i / 2
 		} else {
 			i = 3*i + 1
 		}
 	}
 
-	return Chain{start,count}
+	return Chain{start, count}
 }
 
 func main() {
