@@ -29,8 +29,7 @@ func eratosthenes(max int) []int {
 			}
 		}
 
-
-		if i ==  max {
+		if i == max {
 			break
 		}
 	}
@@ -49,11 +48,10 @@ func eratosthenes(max int) []int {
 
 }
 
-
 func main() {
 	primes := eratosthenes(max)
 
-    var sum int64
+	var sum int64
 	sum = -1 // 1 is not prime in the problem
 	for _, prime := range primes {
 		sum += int64(prime)
