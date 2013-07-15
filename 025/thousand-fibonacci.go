@@ -27,7 +27,7 @@ import "fmt"
 import "math/big"
 
 func main() {
-	count := 0
+	count := 2
 	for previous, current := big.NewInt(1), big.NewInt(2); true; previous, current = current, big.NewInt(0).Add(previous, current) {
 		count++
 		if len(current.String()) > 999 {
