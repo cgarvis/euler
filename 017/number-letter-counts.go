@@ -13,7 +13,7 @@ func int_to_words(i int) string {
 	digits := make([]string, 0)
 	digits = append(digits, "", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine")
 	teens := make([]string, 0)
-	teens = append(teens, "ten", "eleven", "twelve", "thirteen", "forteen", "fifthteen", "sixteen", "seventeen", "eightteen", "nineteen")
+	teens = append(teens, "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen")
 	tens := make([]string, 0)
 	tens = append(tens, "", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety")
 
@@ -28,7 +28,7 @@ func int_to_words(i int) string {
 		words += int_to_words(i%10)
 	} else if i < 1000 {
 		words += digits[i/100] + "hundred"
-		words += int_to_words(i%100)
+		words += "and" + int_to_words(i%100)
 	} else if i < 10000 {
 		words += digits[i/1000] + "thousand"
 		words += int_to_words(i%1000)
@@ -40,9 +40,10 @@ func int_to_words(i int) string {
 func main() {
 	count := 0
 
-	for i := 1; i < 1001; i++ {
+	for i := 1; i <= 1000; i++ {
 		words := int_to_words(i)
 		count += len(words)
+		fmt.Println(fmt.Sprintf("%s %d", words, len(words)))
 	}
 
 	fmt.Println(count)
